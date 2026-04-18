@@ -1,0 +1,33 @@
+apiVersion: spark.apache.org/v1
+kind: SparkApplication
+metadata:
+  name: jdbc-table-ingestion
+spec:
+  mainClass: "org.openprojectx.data.spark.jobs.bronze.TableToIcebergJob"
+  sparkConf:
+    spark.logConf: "true"
+    spark.driver.memory: "2g"
+    spark.executor.memory: "4g"
+    spark.dynamicAllocation.enabled: "true"
+    spark.dynamicAllocation.shuffleTracking.enabled: "true"
+    spark.dynamicAllocation.minExecutors: "2"
+    spark.dynamicAllocation.maxExecutors: "8"
+    spark.kubernetes.authenticate.driver.serviceAccountName: "spark"
+    spark.kubernetes.container.image: "ghcr.io/openprojectx/spark-apps/jdbc-table-ingestion:0.1.7"
+  driverSpec:
+    podTemplateSpec:
+      spec:
+        containers:
+          - name: spark-driver
+            imagePullPolicy: Always
+            env:
+              - name: PROFILE
+                value: cn-guangzhou-a
+            envFrom:
+              - secretRef:
+                  name: jdbc-table-ingestion
+  applicationTolerations:
+    resourceRetainPolicy: OnFailure
+  runtimeVersions:
+    sparkVersion: "4.1.1"
+
