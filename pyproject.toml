@@ -5,7 +5,7 @@ description = "Production-oriented Airflow DAG workspace with local debug, Docke
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
-  "apache-airflow[cncf.kubernetes]==2.10.5",
+  "apache-airflow[cncf.kubernetes]==3.2.0",
   "PyYAML>=6.0.2,<7.0.0",
   "structlog>=25.4.0,<26.0.0",
 ]

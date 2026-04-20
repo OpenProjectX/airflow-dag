@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from airflow.decorators import dag, task
+from airflow.sdk import dag, task
 
 
 @dag(
@@ -25,4 +25,3 @@ def example_local_debug() -> None:
 
 
 dag = example_local_debug()
-

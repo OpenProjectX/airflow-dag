@@ -2,7 +2,7 @@ PYTHON := uv run
 EXECUTION_DATE ?= 2025-01-01
 AIRFLOW_SERVICE ?= airflow-cli
 
-.PHONY: sync lint format test test-integration up down logs dags-test
+.PHONY: sync lint format test test-integration up down logs dags-test kind-up kind-down kind-install-spark-operator
 
 sync:
 	uv sync
@@ -35,3 +35,11 @@ dags-test:
 	test -n "$(DAG_ID)"
 	$(PYTHON) airflow dags test $(DAG_ID) $(EXECUTION_DATE)
 
+kind-up:
+	./scripts/setup-kind-cluster.sh
+
+kind-install-spark-operator:
+	./scripts/install-spark-operator.sh
+
+kind-down:
+	kind delete cluster --name airflow-dag-local

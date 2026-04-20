@@ -1,4 +1,4 @@
-FROM apache/airflow:2.10.5-python3.11
+FROM apache/airflow:3.2.0-python3.12
 
 USER root
 RUN apt-get update \
@@ -6,19 +6,19 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 USER airflow
-WORKDIR /opt/airflow/project
+WORKDIR /opt/airflow
 
 ENV AIRFLOW_HOME=/opt/airflow \
-    PYTHONPATH=/opt/airflow/project/src:/opt/airflow/project \
-    AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/project/dags \
-    AIRFLOW__CORE__PLUGINS_FOLDER=/opt/airflow/project/plugins
+    AIRFLOW_REPO_ROOT=/opt/airflow/dags/repo \
+    UV_PROJECT_ENVIRONMENT=/opt/airflow/.venv \
+    PATH=/opt/airflow/.venv/bin:/home/airflow/.local/bin:${PATH} \
+    PYTHONPATH=/opt/airflow/dags/repo/src:/opt/airflow/dags/repo \
+    AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags/repo/dags \
+    AIRFLOW__CORE__PLUGINS_FOLDER=/opt/airflow/dags/repo/plugins
 
-COPY --chown=airflow:root pyproject.toml README.md ./
-COPY --chown=airflow:root dags dags
-COPY --chown=airflow:root include include
-COPY --chown=airflow:root plugins plugins
-COPY --chown=airflow:root src src
+COPY --chown=airflow:root pyproject.toml uv.lock README.md /opt/airflow/build/
 
-RUN pip install --no-cache-dir uv \
-    && uv pip install --system -e .
-
+RUN pip install --no-cache-dir uv
+WORKDIR /opt/airflow/build
+RUN uv sync --frozen --no-dev --no-install-project
+WORKDIR /opt/airflow

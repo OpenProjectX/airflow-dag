@@ -3,16 +3,20 @@ from __future__ import annotations
 from datetime import datetime
 
 from airflow import DAG
-from airflow.operators.empty import EmptyOperator
-from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import (
-    SparkKubernetesOperator,
+from airflow.providers.standard.operators.empty import EmptyOperator
+from airflow.providers.standard.operators.python import PythonOperator
+
+from airflow_dag_project.k8s import apply_spark_application
+from airflow_dag_project.spark import spark_application_identity
+
+SPARK_APPLICATION_NAMESPACE, SPARK_APPLICATION_NAME = spark_application_identity(
+    "jdbc-table-ingestion.yaml"
 )
 
-from airflow_dag_project.spark import spark_application_path
 
 with DAG(
     dag_id="k8s_spark_jdbc_table_ingestion",
-    description="Submit a SparkApplication to Kubernetes using the Spark Operator.",
+    description="Submit a SparkApplication CR through the Apache Spark Operator API.",
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
@@ -21,14 +25,15 @@ with DAG(
 ) as dag:
     start = EmptyOperator(task_id="start")
 
-    submit_spark_application = SparkKubernetesOperator(
+    submit_spark_application = PythonOperator(
         task_id="submit_spark_application",
-        namespace="{{ var.value.get('spark_k8s_namespace', 'analytics') }}",
-        application_file=str(spark_application_path("jdbc-table-ingestion.yaml")),
-        kubernetes_conn_id="kubernetes_default",
-        do_xcom_push=False,
-        get_logs=True,
-        delete_on_termination=False,
+        python_callable=apply_spark_application,
+        op_kwargs={"filename": "jdbc-table-ingestion.yaml"},
+        doc_md=(
+            "Creates or replaces the "
+            f"`{SPARK_APPLICATION_NAME}` SparkApplication in namespace "
+            f"`{SPARK_APPLICATION_NAMESPACE}`."
+        ),
     )
 
     finish = EmptyOperator(task_id="finish")

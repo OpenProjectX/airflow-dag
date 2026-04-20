@@ -20,6 +20,8 @@ services:
     image: ${AIRFLOW_IMAGE_NAME:-local/airflow-dag-project:latest}
     env_file:
       - .env
+    environment:
+      AIRFLOW_REPO_ROOT: /opt/airflow/dags/repo
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,7 +38,7 @@ services:
       --email $${AIRFLOW_ADMIN_EMAIL:-admin@example.com}
       "
     volumes:
-      - .:/opt/airflow/project
+      - .:/opt/airflow/dags/repo
       - airflow-logs:/opt/airflow/logs
 
   airflow-webserver:
@@ -47,6 +49,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      AIRFLOW_REPO_ROOT: /opt/airflow/dags/repo
     depends_on:
       postgres:
         condition: service_healthy
@@ -63,7 +67,7 @@ services:
       retries: 10
       start_period: 30s
     volumes:
-      - .:/opt/airflow/project
+      - .:/opt/airflow/dags/repo
       - airflow-logs:/opt/airflow/logs
 
   airflow-scheduler:
@@ -74,6 +78,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      AIRFLOW_REPO_ROOT: /opt/airflow/dags/repo
     depends_on:
       postgres:
         condition: service_healthy
@@ -82,7 +88,7 @@ services:
     user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
     command: ["airflow", "scheduler"]
     volumes:
-      - .:/opt/airflow/project
+      - .:/opt/airflow/dags/repo
       - airflow-logs:/opt/airflow/logs
 
   airflow-cli:
@@ -92,6 +98,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    environment:
+      AIRFLOW_REPO_ROOT: /opt/airflow/dags/repo
     depends_on:
       postgres:
         condition: service_healthy
@@ -101,10 +109,9 @@ services:
     entrypoint: ["bash", "-lc"]
     command: ["airflow info"]
     volumes:
-      - .:/opt/airflow/project
+      - .:/opt/airflow/dags/repo
       - airflow-logs:/opt/airflow/logs
 
 volumes:
   postgres-db-volume:
   airflow-logs:
-

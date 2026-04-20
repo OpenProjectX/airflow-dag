@@ -4,11 +4,11 @@ from pathlib import Path
 
 import yaml
 
-from airflow_dag_project.settings import DEFAULT_SPARK_K8S_NAMESPACE
+from airflow_dag_project.settings import DEFAULT_SPARK_K8S_NAMESPACE, SPARK_APPLICATIONS_DIR
 
 
 def spark_application_path(filename: str) -> Path:
-    return Path(__file__).resolve().parents[2] / "include" / "spark-applications" / filename
+    return SPARK_APPLICATIONS_DIR / filename
 
 
 def load_spark_application(filename: str) -> dict:
@@ -19,3 +19,8 @@ def load_spark_application(filename: str) -> dict:
     manifest["metadata"].setdefault("namespace", DEFAULT_SPARK_K8S_NAMESPACE)
     return manifest
 
+
+def spark_application_identity(filename: str) -> tuple[str, str]:
+    manifest = load_spark_application(filename)
+    metadata = manifest["metadata"]
+    return metadata["namespace"], metadata["name"]
