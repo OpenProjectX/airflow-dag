@@ -124,9 +124,9 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "apache-airflow", extra = ["cncf-kubernetes"] },
+    { name = "apache-airflow-providers-cncf-kubernetes" },
     { name = "apache-airflow-providers-fab" },
     { name = "pyyaml" },
-    { name = "structlog" },
 ]
 
 [package.dev-dependencies]
@@ -140,10 +140,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "apache-airflow", extras = ["cncf-kubernetes"], specifier = "==3.2.0" },
-    { name = "apache-airflow-providers-fab", specifier = "==3.2.0" },
-    { name = "pyyaml", specifier = ">=6.0.2,<7.0.0" },
-    { name = "structlog", specifier = ">=25.4.0,<26.0.0" },
+    { name = "apache-airflow", extras = ["cncf-kubernetes"], specifier = "==3.1.8" },
+    { name = "apache-airflow-providers-cncf-kubernetes", specifier = "==10.13.0" },
+    { name = "apache-airflow-providers-fab", specifier = "==3.4.0" },
+    { name = "pyyaml", specifier = "==6.0.3" },
 ]
 
 [package.metadata.requires-dev]
@@ -202,15 +202,15 @@ wheels = [
 
 [[package]]
 name = "apache-airflow"
-version = "3.2.0"
+version = "3.1.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "apache-airflow-core" },
     { name = "apache-airflow-task-sdk" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0d/e8/478653ecd4cbe0375190a77a12cad93e5b37568d526135489b46203ff08c/apache_airflow-3.2.0.tar.gz", hash = "sha256:06f644d874d629903a2a04accd4c240e1ef703a2bbc14832927cf30bb56ea381", size = 29246, upload-time = "2026-04-07T12:52:11.51Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/66/f7/d4197de17a52c1bb5fe59ae00cfa40e4cc9070c2dbf58c51cdc5d88d21a6/apache_airflow-3.1.8.tar.gz", hash = "sha256:b64f56aff0c30ebd271412f521376847c311df042a93fefb34f16e8fe9a9b20c", size = 28782, upload-time = "2026-03-11T19:28:09.165Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/88/2a/54dc1576d7d156f057ac8cf80329e7ae502e18455685abc15e12f52543c7/apache_airflow-3.2.0-py3-none-any.whl", hash = "sha256:6758333a148aba68df48b9697d15733ff5cf53f50bb39642f15c50b2db203d1f", size = 12958, upload-time = "2026-04-07T12:52:05.226Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/31/c5fe03351b9a7d0d2cb7cb4b7f4cddb88ebc9efe47140d03d10adb8ea1f6/apache_airflow-3.1.8-py3-none-any.whl", hash = "sha256:efa5aa4c088544d49b7ef02b45651ec7d906f6e7537b55bebc311efac6f9a477", size = 12607, upload-time = "2026-03-11T19:27:55.99Z" },
 ]
 
 [package.optional-dependencies]
@@ -220,7 +220,7 @@ cncf-kubernetes = [
 
 [[package]]
 name = "apache-airflow-core"
-version = "3.2.0"
+version = "3.1.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "a2wsgi" },
@@ -270,12 +270,13 @@ dependencies = [
     { name = "python-daemon" },
     { name = "python-dateutil" },
     { name = "python-slugify" },
-    { name = "pyyaml" },
     { name = "requests" },
     { name = "rich" },
     { name = "rich-argparse" },
     { name = "setproctitle" },
     { name = "sqlalchemy", extra = ["asyncio"] },
+    { name = "sqlalchemy-jsonfield" },
+    { name = "sqlalchemy-utils" },
     { name = "starlette" },
     { name = "structlog" },
     { name = "svcs" },
@@ -287,14 +288,14 @@ dependencies = [
     { name = "uuid6" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/be/03/ea647b606b67affeb84a9f12d039fbec69423597dc674c42519aa7a9e762/apache_airflow_core-3.2.0.tar.gz", hash = "sha256:187e944d5f51452659a492d5c6449e7f6d2ad22ffdb5813e9206f1c95881680e", size = 5048990, upload-time = "2026-04-07T12:52:13.276Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9e/af/da5fb7c65674bc489f883c5aca2cfecb1179db86e68739f2273f15bac5d5/apache_airflow_core-3.1.8.tar.gz", hash = "sha256:484aa133b3a8684d64e0bac4f0354938a430bd9e4a7bcc2f142b3e59fc8c2a1c", size = 4191284, upload-time = "2026-03-11T19:28:12.338Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e9/35/655754eaa62e6aaec61aa6c63cf3030a277cbad95cacc4f8eb0fe00fa2c9/apache_airflow_core-3.2.0-py3-none-any.whl", hash = "sha256:b04b35b1224549a20786aab37af73e1608e67830fda61341a3fcd7480f13192b", size = 4757298, upload-time = "2026-04-07T12:52:09.677Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/b6/98bc3878830bf85506ebf9ef6fef842ee3ce1b72e74cf9acf9d805712d2c/apache_airflow_core-3.1.8-py3-none-any.whl", hash = "sha256:ba8593b64eb11608ae16b2378700afdacc2c1be9dfd03719860aa3a118556ac6", size = 3910176, upload-time = "2026-03-11T19:28:07.083Z" },
 ]
 
 [[package]]
 name = "apache-airflow-providers-cncf-kubernetes"
-version = "10.10.0"
+version = "10.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -304,10 +305,11 @@ dependencies = [
     { name = "cryptography" },
     { name = "kubernetes" },
     { name = "kubernetes-asyncio" },
+    { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5a/a3/1f4e9a680040ed956a827d40cbc0b6c57fa3959064437ae23626ea18c5d6/apache_airflow_providers_cncf_kubernetes-10.10.0.tar.gz", hash = "sha256:349373ecde5decdf9028c7119c05005e050767d35294fa24614221d791aa9dd5", size = 422436, upload-time = "2025-11-17T19:10:37.284Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fc/0f/749cb4228dfbb24ee545ca0bbd1ee2fb0c8188664bbd73575a4169394a18/apache_airflow_providers_cncf_kubernetes-10.13.0.tar.gz", hash = "sha256:d4e6a1dd77f9a6bacc3bddb8f52c46905f8c5444cc449d3378a0edf8e978b53a", size = 448103, upload-time = "2026-03-02T21:05:52.846Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6c/74/55ffe0f18a409bc66955436d2560aed0103cc569aa5363f69fe0d18d0cce/apache_airflow_providers_cncf_kubernetes-10.10.0-py3-none-any.whl", hash = "sha256:522bcab87ffdece0520164469b419973a35aa134a11d78ff3b82a895828ddba9", size = 154773, upload-time = "2025-11-17T19:08:38.861Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/7f/1ee953b7d1c7adbb1737e2503fc686309d23bfcb24f1396493c8b46d538b/apache_airflow_providers_cncf_kubernetes-10.13.0-py3-none-any.whl", hash = "sha256:7f3e63178e020c4bc4927b91a3ae6d725bffa7e1dc979d305bfff9c6ac59ec62", size = 165270, upload-time = "2026-03-02T20:52:08.354Z" },
 ]
 
 [[package]]
@@ -353,7 +355,7 @@ wheels = [
 
 [[package]]
 name = "apache-airflow-providers-fab"
-version = "3.2.0"
+version = "3.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "apache-airflow" },
@@ -373,9 +375,9 @@ dependencies = [
     { name = "werkzeug" },
     { name = "wtforms" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d7/b5/b3feab2621a48996c142523ef891c471a5e1e1d2cf6c57e03fa0f2bf129b/apache_airflow_providers_fab-3.2.0.tar.gz", hash = "sha256:1dd868e74b0848e74ac6962d9d0d89ef988762a61a5c1105b8687bbfadff89dd", size = 849187, upload-time = "2026-02-02T15:37:23.272Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/50/552c2aeef1cb659bb2eaa9533e86dfb101b284e144571f619d2e09cad1f7/apache_airflow_providers_fab-3.4.0.tar.gz", hash = "sha256:4b376aa0ed01c3d1ed1008bce8d5afee1ff32f4a087905f1bed75097eb14fda7", size = 831034, upload-time = "2026-03-02T21:06:00.333Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e5/f4/b02632658a76fc99c3251412c2ff7b8029615d78371685df93cfd53ae52c/apache_airflow_providers_fab-3.2.0-py3-none-any.whl", hash = "sha256:3268679b3df84f8cc5256d1afb7072b73d03e07ad604f6d91933c087cd199114", size = 636004, upload-time = "2026-02-02T15:36:46.321Z" },
+    { url = "https://files.pythonhosted.org/packages/1a/9b/83ad448bd182097d010e270e3f51ef8d06d4abd8b3e82f5d438cf6f7fde8/apache_airflow_providers_fab-3.4.0-py3-none-any.whl", hash = "sha256:6b4c401b641ea1a885511579d9659bd875c81bbf1ab4b25771f7919408ffcd28", size = 616557, upload-time = "2026-03-02T20:52:16.299Z" },
 ]
 
 [[package]]
@@ -407,7 +409,7 @@ wheels = [
 
 [[package]]
 name = "apache-airflow-task-sdk"
-version = "1.2.0"
+version = "1.1.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "apache-airflow-core" },
@@ -418,26 +420,20 @@ dependencies = [
     { name = "fsspec" },
     { name = "greenback" },
     { name = "httpx" },
-    { name = "importlib-metadata", marker = "python_full_version < '3.12'" },
     { name = "jinja2" },
-    { name = "jsonschema" },
     { name = "methodtools" },
     { name = "msgspec" },
-    { name = "packaging" },
-    { name = "pathspec" },
     { name = "pendulum" },
-    { name = "pluggy" },
     { name = "psutil" },
     { name = "pydantic" },
     { name = "pygtrie" },
     { name = "python-dateutil" },
     { name = "structlog" },
     { name = "tenacity" },
-    { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/93/a0/3412398bd7de45908d5685bc36a372f7c9acd42f6334d7056644ee342986/apache_airflow_task_sdk-1.2.0.tar.gz", hash = "sha256:d2c4d173388f751e1d900a3f5e67fea3518822b63dd20b60a1bdbf92cdf96e8c", size = 1499434, upload-time = "2026-04-07T12:52:22.51Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/38/bf/d437471dce6ffa15c8847d277cdb114e41e7076e0eb22e806d5d335f37c0/apache_airflow_task_sdk-1.1.8.tar.gz", hash = "sha256:d9b6027906a0e179c7ddc550c13717663785460a539b933741f22c47d10f4930", size = 1291245, upload-time = "2026-03-11T19:28:21.262Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d5/5f/d9d2a8c56d948b2452010f7ff26c231704002b323a84016930f858b841d0/apache_airflow_task_sdk-1.2.0-py3-none-any.whl", hash = "sha256:a20b98493905ad879ec3f806a0b92da3f1f7fb95e1f196c0ff1985e6286aad4e", size = 484014, upload-time = "2026-04-07T12:52:20.237Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/a9/9055473ca151dd630d0da2959f82ce2da13baf3a8cde6d7d5e3fdc5cd69e/apache_airflow_task_sdk-1.1.8-py3-none-any.whl", hash = "sha256:bd4d971b7450a297b4c9f59410b1d6bce482c349cd187b393a5b8842a2af57e3", size = 305695, upload-time = "2026-03-11T19:28:19.132Z" },
 ]
 
 [[package]]
@@ -522,7 +518,7 @@ wheels = [
 
 [[package]]
 name = "cadwyn"
-version = "6.2.0"
+version = "5.4.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
@@ -532,9 +528,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d6/20/1bc95a14eef89b70434e42192bb51289b3cc97eb486922e9c70039e63987/cadwyn-6.2.0.tar.gz", hash = "sha256:ef9aff5279494b82d90e67bc68cb32b1413394346f9dea85db47ad40a2462b1a", size = 657541, upload-time = "2026-03-29T18:55:14.875Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/44/db/93a7a9fc8b0d272fcf6ddd9a9847743fc2ea98a17e2ff07942d56fd03e53/cadwyn-5.4.6.tar.gz", hash = "sha256:2e6165aee2eb4b7a465d2998c4fc406911036bf9dee1d1562eeba39ae647f79f", size = 646040, upload-time = "2025-12-18T19:11:52.635Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4b/51/430129a458b1efb5a47835048db2a2854cb0fe59094307c80b978e185c8f/cadwyn-6.2.0-py3-none-any.whl", hash = "sha256:896901fd3b8425a550e08afb3dff4081c642ce4a9667bc66670904b1908b21b6", size = 60807, upload-time = "2026-03-29T18:55:13.906Z" },
+    { url = "https://files.pythonhosted.org/packages/ee/5b/ad7598f6b428dc3595878979cfe1e9df8d65663300ec83d2a69f46d81abf/cadwyn-5.4.6-py3-none-any.whl", hash = "sha256:6c0611bd58de6b92bd7bb2a2779b5323bb20b29cfacbf0e4f71a0cccaa5b47b8", size = 59676, upload-time = "2025-12-18T19:11:50.803Z" },
 ]
 
 [[package]]
@@ -872,18 +868,16 @@ wheels = [
 
 [[package]]
 name = "fastapi"
-version = "0.136.0"
+version = "0.117.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "annotated-doc" },
     { name = "pydantic" },
     { name = "starlette" },
     { name = "typing-extensions" },
-    { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4e/d9/e66315807e41e69e7f6a1b42a162dada2f249c5f06ad3f1a95f84ab336ef/fastapi-0.136.0.tar.gz", hash = "sha256:cf08e067cc66e106e102d9ba659463abfac245200752f8a5b7b1e813de4ff73e", size = 396607, upload-time = "2026-04-16T11:47:13.623Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/7e/d9788300deaf416178f61fb3c2ceb16b7d0dc9f82a08fdb87a5e64ee3cc7/fastapi-0.117.1.tar.gz", hash = "sha256:fb2d42082d22b185f904ca0ecad2e195b851030bd6c5e4c032d1c981240c631a", size = 307155, upload-time = "2025-09-20T20:16:56.663Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/26/a3/0bd5f0cdb0bbc92650e8dc457e9250358411ee5d1b65e42b6632387daf81/fastapi-0.136.0-py3-none-any.whl", hash = "sha256:8793d44ec7378e2be07f8a013cf7f7aa47d6327d0dfe9804862688ec4541a6b4", size = 117556, upload-time = "2026-04-16T11:47:11.922Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/45/d9d3e8eeefbe93be1c50060a9d9a9f366dba66f288bb518a9566a23a8631/fastapi-0.117.1-py3-none-any.whl", hash = "sha256:33c51a0d21cab2b9722d4e56dbb9316f3687155be6b276191790d8da03507552", size = 95959, upload-time = "2025-09-20T20:16:53.661Z" },
 ]
 
 [package.optional-dependencies]
@@ -892,8 +886,6 @@ standard-no-fastapi-cloud-cli = [
     { name = "fastapi-cli", extra = ["standard-no-fastapi-cloud-cli"] },
     { name = "httpx" },
     { name = "jinja2" },
-    { name = "pydantic-extra-types" },
-    { name = "pydantic-settings" },
     { name = "python-multipart" },
     { name = "uvicorn", extra = ["standard"] },
 ]
@@ -1110,19 +1102,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e1/cf/b50ddf667c15276a9ab15a70ef5f257564de271957933ffea49d2cdbcdfb/fsspec-2026.3.0.tar.gz", hash = "sha256:1ee6a0e28677557f8c2f994e3eea77db6392b4de9cd1f5d7a9e87a0ae9d01b41", size = 313547, upload-time = "2026-03-27T19:11:14.892Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/1f/5f4a3cd9e4440e9d9bc78ad0a91a1c8d46b4d429d5239ebe6793c9fe5c41/fsspec-2026.3.0-py3-none-any.whl", hash = "sha256:d2ceafaad1b3457968ed14efa28798162f1638dbb5d2a6868a2db002a5ee39a4", size = 202595, upload-time = "2026-03-27T19:11:13.595Z" },
-]
-
-[[package]]
-name = "google-auth"
-version = "2.49.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "cryptography" },
-    { name = "pyasn1-modules" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/c6/fc/e925290a1ad95c975c459e2df070fac2b90954e13a0370ac505dff78cb99/google_auth-2.49.2.tar.gz", hash = "sha256:c1ae38500e73065dcae57355adb6278cf8b5c8e391994ae9cbadbcb9631ab409", size = 333958, upload-time = "2026-04-10T00:41:21.888Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/73/76/d241a5c927433420507215df6cac1b1fa4ac0ba7a794df42a84326c68da8/google_auth-2.49.2-py3-none-any.whl", hash = "sha256:c2720924dfc82dedb962c9f52cabb2ab16714fd0a6a707e40561d217574ed6d5", size = 240638, upload-time = "2026-04-10T00:41:14.501Z" },
 ]
 
 [[package]]
@@ -1367,13 +1346,11 @@ wheels = [
 
 [[package]]
 name = "kubernetes"
-version = "33.1.0"
+version = "35.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "durationpy" },
-    { name = "google-auth" },
-    { name = "oauthlib" },
     { name = "python-dateutil" },
     { name = "pyyaml" },
     { name = "requests" },
@@ -1382,9 +1359,9 @@ dependencies = [
     { name = "urllib3" },
     { name = "websocket-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ae/52/19ebe8004c243fdfa78268a96727c71e08f00ff6fe69a301d0b7fcbce3c2/kubernetes-33.1.0.tar.gz", hash = "sha256:f64d829843a54c251061a8e7a14523b521f2dc5c896cf6d65ccf348648a88993", size = 1036779, upload-time = "2025-06-09T21:57:58.521Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2c/8f/85bf51ad4150f64e8c665daf0d9dfe9787ae92005efb9a4d1cba592bd79d/kubernetes-35.0.0.tar.gz", hash = "sha256:3d00d344944239821458b9efd484d6df9f011da367ecb155dadf9513f05f09ee", size = 1094642, upload-time = "2026-01-16T01:05:27.76Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/89/43/d9bebfc3db7dea6ec80df5cb2aad8d274dd18ec2edd6c4f21f32c237cbbb/kubernetes-33.1.0-py2.py3-none-any.whl", hash = "sha256:544de42b24b64287f7e0aa9513c93cb503f7f40eea39b20f66810011a86eabc5", size = 1941335, upload-time = "2025-06-09T21:57:56.327Z" },
+    { url = "https://files.pythonhosted.org/packages/0c/70/05b685ea2dffcb2adbf3cdcea5d8865b7bc66f67249084cf845012a0ff13/kubernetes-35.0.0-py2.py3-none-any.whl", hash = "sha256:39e2b33b46e5834ef6c3985ebfe2047ab39135d41de51ce7641a7ca5b372a13d", size = 2017602, upload-time = "2026-01-16T01:05:25.991Z" },
 ]
 
 [[package]]
@@ -1850,15 +1827,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pathlib-abc"
-version = "0.5.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d6/cb/448649d7f25d228bf0be3a04590ab7afa77f15e056f8fa976ed05ec9a78f/pathlib_abc-0.5.2.tar.gz", hash = "sha256:fcd56f147234645e2c59c7ae22808b34c364bb231f685ddd9f96885aed78a94c", size = 33342, upload-time = "2025-10-10T18:37:20.524Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/29/c028a0731e202035f0e2e0bfbf1a3e46ad6c628cbb17f6f1cc9eea5d9ff1/pathlib_abc-0.5.2-py3-none-any.whl", hash = "sha256:4c9d94cf1b23af417ce7c0417b43333b06a106c01000b286c99de230d95eefbb", size = 19070, upload-time = "2025-10-10T18:37:19.437Z" },
-]
-
-[[package]]
 name = "pathspec"
 version = "1.0.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1999,27 +1967,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pyasn1"
-version = "0.6.3"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/5c/5f/6583902b6f79b399c9c40674ac384fd9cd77805f9e6205075f828ef11fb2/pyasn1-0.6.3.tar.gz", hash = "sha256:697a8ecd6d98891189184ca1fa05d1bb00e2f84b5977c481452050549c8a72cf", size = 148685, upload-time = "2026-03-17T01:06:53.382Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5d/a0/7d793dce3fa811fe047d6ae2431c672364b462850c6235ae306c0efd025f/pyasn1-0.6.3-py3-none-any.whl", hash = "sha256:a80184d120f0864a52a073acc6fc642847d0be408e7c7252f31390c0f4eadcde", size = 83997, upload-time = "2026-03-17T01:06:52.036Z" },
-]
-
-[[package]]
-name = "pyasn1-modules"
-version = "0.4.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pyasn1" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/e9/e6/78ebbb10a8c8e4b61a59249394a4a594c1a7af95593dc933a349c8d00964/pyasn1_modules-0.4.2.tar.gz", hash = "sha256:677091de870a80aae844b1ca6134f54652fa2c8c5a52aa396440ac3106e941e6", size = 307892, upload-time = "2025-03-28T02:41:22.17Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/47/8d/d529b5d697919ba8c11ad626e835d4039be708a35b0d22de83a269a6682c/pyasn1_modules-0.4.2-py3-none-any.whl", hash = "sha256:29253a9207ce32b64c3ac6600edc75368f98473906e8fd1043bd6b5b1de2c14a", size = 181259, upload-time = "2025-03-28T02:41:19.028Z" },
-]
-
-[[package]]
 name = "pycparser"
 version = "3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2098,33 +2045,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8e/a8/258a32878140347532be4e44c6f3b1ace3b52b9c9ca7548a65ce18adf4b4/pydantic_core-2.46.2-pp311-pypy311_pp73-musllinux_1_1_armv7l.whl", hash = "sha256:807eeda5551f6884d3b4421578be37be50ddb7a58832348e99617a6714a73748", size = 2319882, upload-time = "2026-04-17T09:10:21.872Z" },
     { url = "https://files.pythonhosted.org/packages/13/b9/5071c298a0f91314a5402b8c56e0efbcebe77085327d0b4df7dc9cb0b674/pydantic_core-2.46.2-pp311-pypy311_pp73-musllinux_1_1_x86_64.whl", hash = "sha256:fcaa1c3c846a7f6686b38fe493d1b2e8007380e293bfef6a9354563c026cbf36", size = 2348065, upload-time = "2026-04-17T09:11:08.263Z" },
     { url = "https://files.pythonhosted.org/packages/75/f3/0a7087e5f861d66ca64ce927230b397cc264c87b712156e6a93b26a459c8/pydantic_core-2.46.2-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:154dbfdfb11b8cbd8ff4d00d0b81e3d19f4cb4bedd5aa9f091060ba071474c6a", size = 2192159, upload-time = "2026-04-17T09:11:20.123Z" },
-]
-
-[[package]]
-name = "pydantic-extra-types"
-version = "2.11.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pydantic" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/66/71/dba38ee2651f84f7842206adbd2233d8bbdb59fb85e9fa14232486a8c471/pydantic_extra_types-2.11.1.tar.gz", hash = "sha256:46792d2307383859e923d8fcefa82108b1a141f8a9c0198982b3832ab5ef1049", size = 172002, upload-time = "2026-03-16T08:08:03.92Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/17/c1/3226e6d7f5a4f736f38ac11a6fbb262d701889802595cdb0f53a885ac2e0/pydantic_extra_types-2.11.1-py3-none-any.whl", hash = "sha256:1722ea2bddae5628ace25f2aa685b69978ef533123e5638cfbddb999e0100ec1", size = 79526, upload-time = "2026-03-16T08:08:02.533Z" },
-]
-
-[[package]]
-name = "pydantic-settings"
-version = "2.13.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pydantic" },
-    { name = "python-dotenv" },
-    { name = "typing-inspection" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/52/6d/fffca34caecc4a3f97bda81b2098da5e8ab7efc9a66e819074a11955d87e/pydantic_settings-2.13.1.tar.gz", hash = "sha256:b4c11847b15237fb0171e1462bf540e294affb9b86db4d9aa5c01730bdbe4025", size = 223826, upload-time = "2026-02-19T13:45:08.055Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/4b/ccc026168948fec4f7555b9164c724cf4125eac006e176541483d2c959be/pydantic_settings-2.13.1-py3-none-any.whl", hash = "sha256:d56fd801823dbeae7f0975e1f8c8e25c258eb75d278ea7abb5d9cebb01b56237", size = 58929, upload-time = "2026-02-19T13:45:06.034Z" },
 ]
 
 [[package]]
@@ -2534,6 +2454,18 @@ asyncio = [
 ]
 
 [[package]]
+name = "sqlalchemy-jsonfield"
+version = "1.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "sqlalchemy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d0/77/88de5c9ac1a44db1abb493d9d0995681b200ad625d80a4a289c7be438d80/SQLAlchemy-JSONField-1.0.2.tar.gz", hash = "sha256:dab3abc9d75a1640e7f3d4875564a4199f665d27863da8d5a089e4eaca5e67f2", size = 15879, upload-time = "2023-11-22T09:31:22.468Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fd/67/d75d119e70863e0519c8eec5fc66714d34ad1ee9e5e73bf4fc8e3d259fac/SQLAlchemy_JSONField-1.0.2-py3-none-any.whl", hash = "sha256:b2945fa1e60b07d5764a7c73b18da427948b35dd4c07c0e94939001dc2dacf77", size = 10217, upload-time = "2023-11-22T09:31:20.83Z" },
+]
+
+[[package]]
 name = "sqlalchemy-utils"
 version = "0.42.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2556,15 +2488,15 @@ wheels = [
 
 [[package]]
 name = "starlette"
-version = "0.52.1"
+version = "0.48.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c4/68/79977123bb7be889ad680d79a40f339082c1978b5cfcf62c2d8d196873ac/starlette-0.52.1.tar.gz", hash = "sha256:834edd1b0a23167694292e94f597773bc3f89f362be6effee198165a35d62933", size = 2653702, upload-time = "2026-01-18T13:34:11.062Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a7/a5/d6f429d43394057b67a6b5bbe6eae2f77a6bf7459d961fdb224bf206eee6/starlette-0.48.0.tar.gz", hash = "sha256:7e8cee469a8ab2352911528110ce9088fdc6a37d9876926e73da7ce4aa4c7a46", size = 2652949, upload-time = "2025-09-13T08:41:05.699Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/81/0d/13d1d239a25cbfb19e740db83143e95c772a1fe10202dda4b76792b114dd/starlette-0.52.1-py3-none-any.whl", hash = "sha256:0029d43eb3d273bc4f83a08720b4912ea4b071087a3b48db01b7c839f7954d74", size = 74272, upload-time = "2026-01-18T13:34:09.188Z" },
+    { url = "https://files.pythonhosted.org/packages/be/72/2db2f49247d0a18b4f1bb9a5a39a0162869acf235f3a96418363947b3d46/starlette-0.48.0-py3-none-any.whl", hash = "sha256:0764ca97b097582558ecb498132ed0c7d942f233f365b86ba37770e026510659", size = 73736, upload-time = "2025-09-13T08:41:03.869Z" },
 ]
 
 [[package]]
@@ -2723,15 +2655,14 @@ wheels = [
 
 [[package]]
 name = "universal-pathlib"
-version = "0.3.10"
+version = "0.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fsspec" },
-    { name = "pathlib-abc" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3d/6e/d997a70ee8f4c61f9a7e2f4f8af721cf072a3326848fc881b05187e52558/universal_pathlib-0.3.10.tar.gz", hash = "sha256:4487cbc90730a48cfb64f811d99e14b6faed6d738420cd5f93f59f48e6930bfb", size = 261110, upload-time = "2026-02-22T14:40:58.87Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/eb/21/dd871495af3933e585261adce42678dcdf1168c9d6fa0a8f7b6565e54472/universal_pathlib-0.2.6.tar.gz", hash = "sha256:50817aaeaa9f4163cb1e76f5bdf84207fa05ce728b23fd779479b3462e5430ac", size = 175427, upload-time = "2024-12-13T00:58:27.514Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/dd/1a/5d9a402b39ec892d856bbdd9db502ff73ce28cdf4aff72eb1ce1d6843506/universal_pathlib-0.3.10-py3-none-any.whl", hash = "sha256:dfaf2fb35683d2eb1287a3ed7b215e4d6016aa6eaf339c607023d22f90821c66", size = 83528, upload-time = "2026-02-22T14:40:57.316Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/4d/2e577f6db7aa0f932d19f799c18f604b2b302c65f733419b900ec07dbade/universal_pathlib-0.2.6-py3-none-any.whl", hash = "sha256:700dec2b58ef34b87998513de6d2ae153b22f083197dfafb8544744edabd1b18", size = 50087, upload-time = "2024-12-13T00:58:24.582Z" },
 ]
 
 [[package]]

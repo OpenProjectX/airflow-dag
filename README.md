@@ -7,6 +7,7 @@ Production-oriented Airflow DAG repository with:
 - Docker Compose for a reproducible Airflow stack
 - Testcontainers-backed integration tests
 - Kubernetes Spark example DAG using the Apache Spark Operator CRD
+- tenant-isolated workload execution via `KubernetesPodOperator`
 
 ## Layout
 
@@ -27,6 +28,23 @@ Production-oriented Airflow DAG repository with:
 
 - `uv`
 - Docker with Compose support
+
+## Runtime Model
+
+This repository treats the Airflow runtime image as the platform boundary.
+
+- The Airflow image is authoritative for Airflow core and provider versions.
+- DAG code is delivered separately through a repo mount locally and `git-sync` in production.
+- Tenant-specific libraries do not belong in the shared Airflow image.
+- Tenants that need different libraries should run tasks in dedicated images, typically with `KubernetesPodOperator` or a Spark workload image.
+
+As inspected from the live `data` namespace on April 22, 2026, the current platform versions are:
+
+- `apache-airflow==3.1.8`
+- `apache-airflow-providers-cncf-kubernetes==10.13.0`
+- `apache-airflow-providers-fab==3.4.0`
+- `PyYAML==6.0.3`
+- `structlog==25.5.0`
 
 ## Quick Start
 
@@ -95,7 +113,7 @@ The example DAG `k8s_spark_jdbc_table_ingestion` submits the manifest at:
 
 - `include/spark-applications/jdbc-table-ingestion.yaml`
 
-The DAG uses the Kubernetes Python client to create or replace the `sparkapplications.spark.apache.org/v1` custom resource exposed by the Apache Spark Operator.
+The DAG uses [src/airflow_dag_project/k8s.py](/data/Git/airflow-dag/src/airflow_dag_project/k8s.py), which resolves credentials through `apache-airflow-providers-cncf-kubernetes` and then creates or replaces the `sparkapplications.spark.apache.org/v1` custom resource exposed by the Apache Spark Operator.
 
 This manifest is derived from:
 
@@ -104,14 +122,37 @@ This manifest is derived from:
 Before running the DAG against a cluster, configure:
 
 - `SPARK_K8S_NAMESPACE`
-- `KUBECONFIG` or in-cluster credentials
-- `K8S_IN_CLUSTER=true` when Airflow runs inside Kubernetes
+- Airflow connection `kubernetes_default` or another Kubernetes connection ID
 
 The DAG is intentionally written so that unit tests can import it without contacting Kubernetes.
 
+## Multi-Tenancy
+
+The repository assumes a shared Airflow control plane and isolated tenant workloads.
+
+- Shared platform image:
+  - Airflow core
+  - Airflow providers
+  - lightweight orchestration helpers used at DAG parse time
+- Tenant runtime images:
+  - team-specific Python libraries
+  - business logic dependencies
+  - native binaries and heavy runtime stacks
+
+The example DAG [dags/tenant_isolated_kubernetes_pod.py](/data/Git/airflow-dag/dags/tenant_isolated_kubernetes_pod.py) shows the expected pattern: use `KubernetesPodOperator` to run tenant code in a separate container image instead of installing tenant libraries into the shared Airflow image.
+
+Tenant defaults are configured through environment variables:
+
+- `DEFAULT_TENANT_NAMESPACE`
+- `DEFAULT_KUBERNETES_CONN_ID`
+- `DEFAULT_TENANT_TASK_IMAGE`
+- `DEFAULT_TENANT_SERVICE_ACCOUNT`
+
+Per-tenant runtime resolution lives in [src/airflow_dag_project/tenancy.py](/data/Git/airflow-dag/src/airflow_dag_project/tenancy.py).
+
 ## Git-Sync Runtime Model
 
-The image now carries dependencies only. DAGs, plugins, manifests, and shared repo code are expected at runtime under `/opt/airflow/dags/repo`.
+The image does not install Python dependencies from this repo. DAGs, plugins, manifests, and shared repo code are expected at runtime under `/opt/airflow/dags/repo`.
 
 For local development, Docker Compose mounts this repository directly to that path:
 

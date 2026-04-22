@@ -12,4 +12,4 @@ def test_expected_dags_are_present() -> None:
     dag_bag = DagBag(dag_folder="dags", include_examples=False)
     assert "example_local_debug" in dag_bag.dags
     assert "k8s_spark_jdbc_table_ingestion" in dag_bag.dags
-
+    assert "tenant_isolated_kubernetes_pod" in dag_bag.dags
