@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
   "apache-airflow[cncf.kubernetes]==3.2.0",
+  "apache-airflow-providers-fab==3.2.0",
   "PyYAML>=6.0.2,<7.0.0",
   "structlog>=25.4.0,<26.0.0",
 ]
@@ -53,4 +54,3 @@ select = [
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
-
