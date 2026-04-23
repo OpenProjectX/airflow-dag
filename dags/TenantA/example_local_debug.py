@@ -6,7 +6,7 @@ from airflow.sdk import dag, task
 
 
 @dag(
-    dag_id="example_local_debug",
+    dag_id="tenant_a_example_local_debug",
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
